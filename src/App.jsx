@@ -1,27 +1,25 @@
-// App.jsx
 import React, { useState } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Creater from './content/Creater';
 import Cards from './content/Cards';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import Filter from './content/Filter';
 
 function App() {
   const [data, setData] = useState([
     {
-      id :1,
+      id: 1,
       Name: "Office Task 1",
       Description: "This is the description for my first task",
       Status: "Not Completed"
     },
     {
-      id :2,
+      id: 2,
       Name: "Office Task 2",
       Description: "This is the description for my second task",
       Status: "Not Completed"
     },
     {
-      id :3,
+      id: 3,
       Name: "Office Task 3",
       Description: "This is the description for my third task",
       Status: "Not Completed"
@@ -45,7 +43,17 @@ function App() {
     <>
       <Creater setData={setData} editedTodo={editedTodo} />
       <Filter setFilter={setFilter} />
-      <Cards data={filteredData} setData={setData} handleEdit={handleEdit} />
+      {data.length === 0 ? (
+        <div className="text-center mt-5" style={{ fontSize: "30px", color: "Black" }}>
+          No todos to display
+        </div>
+      ) : filteredData.length > 0 ? (
+        <Cards data={filteredData} setData={setData} handleEdit={handleEdit} />
+      ) : (
+        <div className="text-center mt-5" style={{ fontSize: "30px", color: "Black" }}>
+          {filter === "Completed" ? "No completed todos are available" : "All Todos Completed"}
+        </div>
+      )}
     </>
   );
 }
